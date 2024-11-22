@@ -21,22 +21,27 @@ BINARY		=
 NAME		=	libmy
 
 $(NAME):	$(OBJ) all
-		ar rc $(NAME).a $(OBJ)
+		@ar rc $(NAME).a $(OBJ)
+		@echo "Makefile -> libmy"
 
 all: 	$(NAME)
-		gcc $(OBJ) -o $(BINARY) $(CFLAGS)
+		@gcc $(OBJ) -o $(BINARY) $(CFLAGS)
+		@echo "Makefile -> gcc"
 
 clean:
-		rm -f $(OBJ)
+		@rm -f $(OBJ)
+		@echo "Makefile -> clean"
 
 fclean: clean
-		rm -rf $(BINARY)
-		rm -rf unit_tests
-		rm -rf *.log
-		rm -rf *.gcov
-		rm -rf *.gcda
-		rm -rf *.gcno
-		rm -f $(NAME).a
-		rm -f vgcore.*
+		@rm -rf $(BINARY)
+		@rm -rf unit_tests
+		@rm -rf *.log
+		@rm -rf *.gcov
+		@rm -rf *.gcda
+		@rm -rf *.gcno
+		@rm -f $(NAME).a
+		@rm -f vgcore.*
+		@echo "Makefile -> fclean"
 
 re:		fclean all
+		@echo "Makefile -> re"
