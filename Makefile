@@ -8,7 +8,9 @@
 
 DIR_SRC		=	src
 
-SRC_FILES	=	
+SRC_FILES	=	write.c		\
+				get_len.c	\
+				my_dup.c	\
 
 SRC			=	$(addprefix $(DIR_SRC)/, $(SRC_FILES))
 
