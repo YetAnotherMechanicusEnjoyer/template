@@ -47,3 +47,5 @@ fclean: clean
 
 re:		fclean all
 		@echo "Makefile -> re"
+
+.PHONY: all clean fclean re $(NAME)
