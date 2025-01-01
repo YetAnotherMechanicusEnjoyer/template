@@ -5,33 +5,37 @@
 ## Compiles C files
 ##
 
+DIR_LIB		=	lib/
 
-DIR_SRC		=	src
-
-SRC_FILES	=	write.c		\
+LIB_FILES	=	write.c		\
 				get_len.c	\
 				my_dup.c	\
+				convert.c	\
+				str_to_word_array.c
 
-SRC			=	$(addprefix $(DIR_SRC)/, $(SRC_FILES))
+DIR_SRC		=	src/
+
+SRC_FILES	=	main.c	\
+				$(addprefix $(DIR_LIB), $(LIB_FILES))
+
+SRC			=	$(addprefix $(DIR_SRC), $(SRC_FILES))
 
 OBJ			=	$(SRC:.c=.o)
 
-CFLAGS		=	-I include -g
+CFLAGS		=	-g
 
-BINARY		=	
+BINARY		=	template
 
-NAME		=	libmy
+all: 	compile clean
+		@echo "Makefile -> all"
 
-$(NAME):	$(OBJ) all
-		@ar rc $(NAME).a $(OBJ)
-		@echo "Makefile -> libmy"
-
-all: 	$(NAME)
+compile:	$(OBJ)
 		@gcc $(OBJ) -o $(BINARY) $(CFLAGS)
-		@echo "Makefile -> gcc"
+		@echo "Makefile -> compile"
 
 clean:
 		@rm -f $(OBJ)
+		@rm -rf .ropeproject
 		@echo "Makefile -> clean"
 
 fclean: clean
@@ -41,11 +45,12 @@ fclean: clean
 		@rm -rf *.gcov
 		@rm -rf *.gcda
 		@rm -rf *.gcno
-		@rm -f $(NAME).a
 		@rm -f vgcore.*
 		@echo "Makefile -> fclean"
 
 re:		fclean all
+		@rm -f $(OBJ)
+		@rm -rf .ropeproject
 		@echo "Makefile -> re"
 
-.PHONY: all clean fclean re $(NAME)
+.PHONY: all clean fclean re compile
