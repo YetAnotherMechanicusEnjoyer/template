@@ -29,6 +29,8 @@ int get_nb_len(int nb)
 {
     int len;
 
+    if (nb < 0)
+        nb *= -1;
     for (len = 1; nb > 9; len++)
         nb /= 10;
     return len;

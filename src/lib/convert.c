@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** template
+** lib
 ** File description:
 ** convert.c
 */
@@ -11,7 +11,7 @@ static char *add_to_str(char *str, char to_add)
 {
     int i;
 
-    for (i = 0; str[i]; i++);
+    for (i = 0; str[i] != '\0'; i++);
     str[i] = to_add;
     str[i + 1] = '\0';
     return str;
@@ -19,25 +19,17 @@ static char *add_to_str(char *str, char to_add)
 
 static char *recursive_to_string(int nb, char *result)
 {
-    if (nb < 0) {
-        result = add_to_str(result, '-');
-        nb = -nb;
-    }
     if (nb >= 10)
-        result = recursive_to_string(nb / 10, result);
+        recursive_to_string(nb / 10, result);
     return add_to_str(result, (nb % 10 + 48));
 }
 
 char *int_str(int nb)
 {
-    int len;
-    char *result = malloc(sizeof(char) * (len + 1));
+    int len = get_nb_len(nb);
+    char *result = malloc(sizeof(char) * len);
 
-    if (nb < 0)
-        len = get_nb_len(nb * -1);
-    else
-        len = get_nb_len(nb);
-    result = malloc(sizeof(char) * (len + 1));
+    result[0] = '\0';
     return recursive_to_string(nb, result);
 }
 

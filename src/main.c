@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-**
+** template
 ** File description:
 ** main.c
 */

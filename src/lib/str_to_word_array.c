@@ -54,7 +54,7 @@ static int count_words(char *str, char *separators, int len)
     return nb_word;
 }
 
-char **str_to_word_array(char *str, char *separators)
+static char **str_to_word_array_fr(char *str, char *separators)
 {
     int len = get_len(str);
     int nb_word = count_words(str, separators, len);
@@ -63,8 +63,6 @@ char **str_to_word_array(char *str, char *separators)
     char **array = malloc(sizeof(char *) * (nb_word + 2));
     int arr_i = 0;
 
-    if (!str)
-        return NULL;
     for (index = 0; index < len; index++) {
         word_len = get_word_len(&str[index], separators);
         if (len > 0) {
@@ -75,4 +73,11 @@ char **str_to_word_array(char *str, char *separators)
         }
     }
     return array;
+}
+
+char **str_to_word_array(char *str, char *separators)
+{
+    if (!str)
+        return NULL;
+    return str_to_word_array_fr(str, separators);
 }

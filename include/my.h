@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** my.h
+** header
 ** File description:
 ** my.h
 */
