@@ -5,7 +5,7 @@
 ** strdup & arraydup
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
 char *dup_add(char *src, char to_insert)
 {

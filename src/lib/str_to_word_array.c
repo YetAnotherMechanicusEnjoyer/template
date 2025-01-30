@@ -5,7 +5,7 @@
 ** str_to_word_array.c
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
 static int is_separator(char c, char *separators)
 {

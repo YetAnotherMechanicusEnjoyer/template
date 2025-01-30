@@ -17,6 +17,7 @@
     #include <SFML/Graphics.h>
     #include <SFML/Window.h>
     #include <SFML/System.h>
+    #define EXIT_ERROR 84
 
 // Lib
 int get_len(const char *str);

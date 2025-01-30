@@ -5,7 +5,7 @@
 ** write.c
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
 int write_mess(char *mess)
 {

@@ -5,7 +5,7 @@
 ** convert.c
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
 static char *add_to_str(char *str, char to_add)
 {

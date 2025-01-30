@@ -22,7 +22,7 @@ SRC			=	$(addprefix $(DIR_SRC), $(SRC_FILES))
 
 OBJ			=	$(SRC:.c=.o)
 
-CFLAGS		=	-g
+CFLAGS		=	-I./include -g
 
 BINARY		=	template
 
