@@ -7,7 +7,7 @@
 
 #include "my.h"
 
-static int is_separator(char c, char *separators)
+static int is_separator(char c, const char *separators)
 {
     for (int i = 0; separators[i] != '\0'; i++) {
         if (c == separators[i])
@@ -16,7 +16,7 @@ static int is_separator(char c, char *separators)
     return 0;
 }
 
-static int get_word_len(char *str, char *separators)
+static int get_word_len(const char *str, const char *separators)
 {
     int len = 0;
 
@@ -26,11 +26,13 @@ static int get_word_len(char *str, char *separators)
     return len;
 }
 
-static char *get_word(char *str, int word_len)
+static char *get_word(const char *str, int word_len)
 {
     int j = 0;
     char *word = malloc(sizeof(char) * (word_len + 2));
 
+    if (!word)
+        return NULL;
     for (int i = 0; i < word_len && str[i] != '\0'; i++) {
         word[j] = str[i];
         j++;
@@ -39,7 +41,7 @@ static char *get_word(char *str, int word_len)
     return word;
 }
 
-static int count_words(char *str, char *separators, int len)
+static int count_words(const char *str, const char *separators, int len)
 {
     int i;
     int nb_word = 0;
@@ -54,7 +56,7 @@ static int count_words(char *str, char *separators, int len)
     return nb_word;
 }
 
-static char **str_to_word_array_fr(char *str, char *separators)
+static char **str_to_word_array_fr(const char *str, const char *separators)
 {
     int len = get_len(str);
     int nb_word = count_words(str, separators, len);
@@ -63,6 +65,8 @@ static char **str_to_word_array_fr(char *str, char *separators)
     char **array = malloc(sizeof(char *) * (nb_word + 2));
     int arr_i = 0;
 
+    if (!array)
+        return NULL;
     for (index = 0; index < len; index++) {
         word_len = get_word_len(&str[index], separators);
         if (len > 0) {
@@ -75,9 +79,9 @@ static char **str_to_word_array_fr(char *str, char *separators)
     return array;
 }
 
-char **str_to_word_array(char *str, char *separators)
+char **str_to_word_array(const char *str, const char *separators)
 {
-    if (!str)
+    if (!str || !separators)
         return NULL;
     return str_to_word_array_fr(str, separators);
 }

@@ -5,7 +5,7 @@
 ** convert.c
 */
 
-#include "my.h"
+#include "../../include/my.h"
 
 static char *add_to_str(char *str, char to_add)
 {
@@ -27,9 +27,15 @@ static char *recursive_to_string(int nb, char *result)
 char *int_str(int nb)
 {
     int len = get_nb_len(nb);
+    int i = 0;
     char *result = malloc(sizeof(char) * len);
 
-    result[0] = '\0';
+    if (nb < 0) {
+        nb *= -1;
+        result[i] = '-';
+        i++;
+    }
+    result[i] = '\0';
     return recursive_to_string(nb, result);
 }
 
@@ -42,7 +48,7 @@ static int is_num(char c)
     return 0;
 }
 
-int str_to_int(char *str)
+int str_to_int(const char *str)
 {
     int nb = 0;
     int check = 0;

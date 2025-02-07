@@ -5,15 +5,16 @@
 ** write.c
 */
 
-#include "my.h"
+#include "../../include/my.h"
 
-int write_mess(char *mess)
+int write_mess(const char *mess)
 {
-    return write(1, mess, get_len(mess));
+    write(1, mess, get_len(mess));
+    return EXIT_SUCCESS;
 }
 
-int write_error(char *mess)
+int write_error(const char *mess)
 {
     write(2, mess, get_len(mess));
-    return 84;
+    return EXIT_ERROR;
 }

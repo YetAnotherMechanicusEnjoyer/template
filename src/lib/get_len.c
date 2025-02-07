@@ -15,7 +15,7 @@ int get_len(const char *str)
     return i;
 }
 
-int get_array_len(char **array)
+int get_array_len(const char **array)
 {
     int i = 0;
 
@@ -36,7 +36,7 @@ int get_nb_len(int nb)
     return len;
 }
 
-int str_cmp(char *a, char *b)
+int str_cmp(const char *a, const char *b)
 {
     for (int i = 0; a[i] && a[i] != '\0' && b[i] && b[i] != '\0'; i++) {
         if (a[i] != b[i])
