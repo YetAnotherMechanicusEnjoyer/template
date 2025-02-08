@@ -49,14 +49,13 @@ $(BINARY):	$(OBJ)
 		@echo "Makefile -> compile"
 
 clean:
-		@rm -f $(OBJ)
+		@rm -f $(OBJ) $(TEST_OBJ)
 		@rm -rf .ropeproject
 		@echo "Makefile -> clean"
 
 fclean: clean
 		@rm -f $(BINARY)
 		@rm -f $(BINARY_TEST)
-		@rm -rf unit_tests
 		@rm -rf *.log
 		@rm -rf *.gcov
 		@rm -rf *.gcda
@@ -74,7 +73,6 @@ run:	re
 		@-./$(BINARY)
 		@rm -f $(BINARY)
 		@rm -f $(OBJ)
-		@rm -rf unit_tests
 		@rm -rf *.log
 		@rm -rf *.gcov
 		@rm -rf *.gcda
@@ -82,7 +80,7 @@ run:	re
 		@rm -f vgcore.*
 		@echo ">-------------------<"
 
-criterion: re
+criterion: fclean $(TEST_OBJ)
 		@gcc -o $(BINARY_TEST) $(TEST_OBJ) $(TESTS) $(CFLAGS) $(TFLAGS)
 		@rm -f $(TEST_OBJ)
 		@echo "Makefile -> criterion"
@@ -90,9 +88,10 @@ criterion: re
 run_tests:	criterion
 		@-./$(BINARY_TEST)
 		@gcovr --exclude ./$(BINARY_TEST)
+		@rm -f $(BINARY) $(BINARY_TEST)
 		@rm -rf *.gcov
 		@rm -rf *.gcda
 		@rm -rf *.gcno
 		@echo "Makefile -> run_tests"
 
-.PHONY: all clean fclean re compile criterion run_tests run
+.PHONY: all clean fclean re criterion run_tests run

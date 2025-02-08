@@ -78,10 +78,10 @@ Test(str_to_word_array, test) {
 }
 
 Test(write_mess, test) {
-    cr_expect(write_mess("aled\n") == 0);
+    cr_expect(write_mess("write_mess -> test successfull\n") == 0);
 }
 
 Test(write_error, test) {
-    cr_expect(write_error("aled\n") == 84);
+    cr_expect(write_error("write_error -> test successfull\n") == 84);
 }
 
