@@ -35,12 +35,3 @@ int get_nb_len(int nb)
         nb /= 10;
     return len;
 }
-
-int str_cmp(const char *a, const char *b)
-{
-    for (int i = 0; a[i] && a[i] != '\0' && b[i] && b[i] != '\0'; i++) {
-        if (a[i] != b[i])
-            return a[i] - b[i];
-    }
-    return 0;
-}

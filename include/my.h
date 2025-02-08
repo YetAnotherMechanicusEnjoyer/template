@@ -25,11 +25,14 @@
 int get_len(const char *str);
 int get_array_len(const char **array);
 int get_nb_len(int nb);
-char *my_strdup(const char *str);
+char *str_dup(const char *str);
+char *strn_dup(const char *str, int n);
+void str_cpy(const char *a, char *b);
+void strn_cpy(const char *a, char *b, int n);
 int write_mess(const char *mess);
 int write_error(const char *mess);
 int str_cmp(const char *a, const char *b);
-char **str_to_word_array(const char *str, const char *separators);
+char **slice_words(const char *str, const char *separators, int reverse);
 int str_to_int(const char *str);
 char *int_str(int nb);
 char *read_file(const char *path);

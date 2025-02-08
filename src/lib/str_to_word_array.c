@@ -16,72 +16,59 @@ static int is_separator(char c, const char *separators)
     return 0;
 }
 
-static int get_word_len(const char *str, const char *separators)
-{
-    int len = 0;
-
-    if (!str)
-        return 0;
-    for (; str[len] != '\0' && !is_separator(str[len], separators); len++);
-    return len;
-}
-
-static char *get_word(const char *str, int word_len)
-{
-    int j = 0;
-    char *word = malloc(sizeof(char) * (word_len + 2));
-
-    if (!word)
-        return NULL;
-    for (int i = 0; i < word_len && str[i] != '\0'; i++) {
-        word[j] = str[i];
-        j++;
-    }
-    word[j] = '\0';
-    return word;
-}
-
-static int count_words(const char *str, const char *separators, int len)
+static int count_words(const char *str, int len)
 {
     int i;
     int nb_word = 0;
 
-    for (i = 1; i < len && str[i] != '\0'; i++) {
-        if (is_separator(str[i], separators) && !is_separator(str[i - 1],
-            separators))
-            nb_word++;
+    for (i = 0; i < len; i++) {
+        if (str[i] != '\0')
+            nb_word += 1;
+        for (; str[i] != '\0'; i++);
     }
-    if (!is_separator(str[i], separators))
-        nb_word++;
     return nb_word;
 }
 
-static char **str_to_word_array_fr(const char *str, const char *separators)
+static char *handle_separators(char *str, const char *sep, int reverse)
+{
+    char *cpy = malloc(sizeof(char) * get_len(str) + 1);
+
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (is_separator(str[i], sep))
+            cpy[i] = '\0';
+        else
+            cpy[i] = str[i];
+    }
+    return cpy;
+}
+
+static char **str_to_word_array(const char *str, const char *sep, int reverse)
 {
     int len = get_len(str);
-    int nb_word = count_words(str, separators, len);
-    int word_len = 0;
-    int index;
-    char **array = malloc(sizeof(char *) * (nb_word + 2));
-    int arr_i = 0;
+    int word_len;
+    int i = 0;
+    char *string = handle_separators(str_dup(str), sep, reverse);
+    int count = count_words(string, len);
+    char **array = malloc(sizeof(char *) * (count + 1));
 
     if (!array)
         return NULL;
-    for (index = 0; index < len; index++) {
-        word_len = get_word_len(&str[index], separators);
-        if (len > 0) {
-            array[arr_i] = get_word(&str[index], word_len);
+    for (int index = 0; index < len; index++) {
+        if (!(string[i] == '\0')) {
+            word_len = get_len(&string[index]);
+            array[i] = strn_dup(&string[index], word_len);
             index += word_len;
-            array[arr_i + 1] = NULL;
-            arr_i++;
+            i++;
         }
     }
+    free(string);
+    array[i] = NULL;
     return array;
 }
 
-char **str_to_word_array(const char *str, const char *separators)
+char **slice_words(const char *str, const char *separators, int reverse)
 {
     if (!str || !separators)
         return NULL;
-    return str_to_word_array_fr(str, separators);
+    return str_to_word_array(str, separators, reverse);
 }
