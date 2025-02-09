@@ -1,0 +1,17 @@
+NAME
+        template - Yet Another template
+
+USAGE
+        ./template [OPTIONS] <file>
+
+DESCRIPTION
+        ...
+
+OPTIONS
+        -h
+            Displays this help page.
+        --help
+            Displays this help page.
+
+AUTHOR
+        Ahmed AL RAWI
