@@ -34,7 +34,7 @@ static char *handle_separators(char *str, const char *sep, int reverse)
     char *cpy = malloc(sizeof(char) * get_len(str) + 1);
 
     for (int i = 0; str[i] != '\0'; i++) {
-        if (is_separator(str[i], sep))
+        if (is_separator(str[i], sep) && !reverse)
             cpy[i] = '\0';
         else
             cpy[i] = str[i];

@@ -18,8 +18,12 @@
     #include <SFML/Window.h>
     #include <SFML/System.h>
     #include <criterion/criterion.h>
-    #define EXIT_ERROR 84
-    #define EXIT_HELP 12
+
+enum {
+    EXIT_ERROR  =   84,
+    EXIT_FAIL   =   -1,
+    EXIT_HELP   =   2029,
+};
 
 // Lib
 int get_len(const char *str);
