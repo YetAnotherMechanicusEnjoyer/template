@@ -74,7 +74,14 @@ Test(str_dup, test) {
 }
 
 Test(str_to_word_array, test) {
-    cr_expect(0 == 0);
+    const char *str = "slice ->\ttest successfull\n";
+    const char *sep = " \t";
+    char **array = slice(str, sep, 0);
+
+    cr_expect(str_cmp(array[0], "slice") == 0);
+    cr_expect(str_cmp(array[1], "->") == 0);
+    cr_expect(str_cmp(array[2], "test") == 0);
+    cr_expect(str_cmp(array[3], "successfull") == 0);
 }
 
 Test(write_mess, test) {
