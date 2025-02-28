@@ -65,12 +65,12 @@ Test(str_cmp, test) {
     cr_expect(str_cmp("a", "a") == 0);
 }
 
-Test(my_strdup, test) {
-    cr_expect(str_cmp(my_strdup(""), "") == 0);
-    cr_expect(str_cmp(my_strdup("a"), "a") == 0);
-    cr_expect(str_cmp(my_strdup("ab"), "ab") == 0);
-    cr_expect(str_cmp(my_strdup("abc"), "abc") == 0);
-    cr_expect(str_cmp(my_strdup("abcd"), "abcd") == 0);
+Test(str_dup, test) {
+    cr_expect(str_cmp(str_dup(""), "") == 0);
+    cr_expect(str_cmp(str_dup("a"), "a") == 0);
+    cr_expect(str_cmp(str_dup("ab"), "ab") == 0);
+    cr_expect(str_cmp(str_dup("abc"), "abc") == 0);
+    cr_expect(str_cmp(str_dup("abcd"), "abcd") == 0);
 }
 
 Test(str_to_word_array, test) {

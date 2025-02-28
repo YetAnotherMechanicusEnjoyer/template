@@ -5,19 +5,19 @@
 ** convert.c
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
-static char *add_to_str(char *str, char to_add)
+static char *add_to_str(char *str, const char to_add)
 {
-    int i;
+    size_t i = 0;
 
-    for (i = 0; str[i] != '\0'; i++);
+    for (; str[i] != '\0'; i++);
     str[i] = to_add;
     str[i + 1] = '\0';
     return str;
 }
 
-static char *recursive_to_string(int nb, char *result)
+static char *recursive_to_string(size_t nb, char *result)
 {
     if (nb >= 10)
         recursive_to_string(nb / 10, result);
@@ -26,8 +26,8 @@ static char *recursive_to_string(int nb, char *result)
 
 char *int_str(int nb)
 {
-    int len = get_nb_len(nb);
-    int i = 0;
+    size_t len = get_nb_len(nb);
+    size_t i = 0;
     char *result = malloc(sizeof(char) * len);
 
     if (nb < 0) {
@@ -39,7 +39,7 @@ char *int_str(int nb)
     return recursive_to_string(nb, result);
 }
 
-static int is_num(char c)
+static size_t is_num(char c)
 {
     if (c < 3)
         return 2;
@@ -51,13 +51,13 @@ static int is_num(char c)
 int str_to_int(const char *str)
 {
     int nb = 0;
-    int check = 0;
-    int num;
+    size_t check = 0;
+    size_t num = 0;
 
     for (int i = 0; str[i] != '\0'; i++) {
         num = is_num(str[i]);
         if (num == 0)
-            return -1;
+            return EXIT_FAIL;
         if (num == 1 && check == 1)
             nb *= 10;
         if (num == 1) {

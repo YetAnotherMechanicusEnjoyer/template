@@ -9,8 +9,8 @@
 
 char *read_file(const char *path)
 {
-    char *buffer;
-    int fd = open(path, O_RDONLY);
+    char *buffer = NULL;
+    const int fd = open(path, O_RDONLY);
     struct stat st;
 
     if (fd == -1 || stat(path, &st) == -1)

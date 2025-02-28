@@ -14,29 +14,35 @@
     #include <stdlib.h>
     #include <dirent.h>
     #include <sys/stat.h>
-    #include <SFML/Graphics.h>
-    #include <SFML/Window.h>
-    #include <SFML/System.h>
+    #include <CSFML/Graphics.h>
+    #include <CSFML/Window.h>
+    #include <CSFML/System.h>
     #include <criterion/criterion.h>
 
 enum {
-    EXIT_ERROR  =   84,
-    EXIT_FAIL   =   -1,
-    EXIT_HELP   =   2029,
+    EXIT_ERROR = 84,
+    EXIT_FAIL = -1,
+    EXIT_HELP = 2029,
+    COUT = 1,
+    CERR = 2,
 };
 
+// Initialise
+int initialise(const int argc, const char *argv[]);
+
 // Lib
-int get_len(const char *str);
-int get_array_len(const char **array);
-int get_nb_len(int nb);
+size_t get_len(const char *str);
+size_t get_array_len(const char **array);
+size_t get_nb_len(const int nb);
 char *str_dup(const char *str);
-char *strn_dup(const char *str, int n);
+char *strn_dup(const char *str, const size_t n);
 void str_cpy(const char *a, char *b);
-void strn_cpy(const char *a, char *b, int n);
-int write_mess(const char *mess);
-int write_error(const char *mess);
+void strn_cpy(const char *a, char *b, const size_t n);
+size_t write_mess(const char *mess);
+size_t write_error(const char *mess);
 int str_cmp(const char *a, const char *b);
-char **slice_words(const char *str, const char *separators, int reverse);
+int strn_cmp(char const *s1, char const *s2, const size_t n);
+char **slice(const char *str, const char *separators, const size_t reverse);
 int str_to_int(const char *str);
 char *int_str(int nb);
 char *read_file(const char *path);
