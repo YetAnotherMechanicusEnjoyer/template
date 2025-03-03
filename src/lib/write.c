@@ -5,7 +5,7 @@
 ** write.c
 */
 
-#include "../../include/my.h"
+#include "my.h"
 
 size_t write_mess(const char *mess)
 {
