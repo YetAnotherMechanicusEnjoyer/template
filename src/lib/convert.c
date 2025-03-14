@@ -7,18 +7,28 @@
 
 #include "my.h"
 
+static char *add_to_str(char *str, const char to_add)
+{
+    size_t i = 0;
+
+    for (; str[i] != '\0'; i++);
+    str[i] = to_add;
+    str[i + 1] = '\0';
+    return str;
+}
+
 static char *recursive_to_string(size_t nb, char *result)
 {
     if (nb >= 10)
         recursive_to_string(nb / 10, result);
-    return str_cat(result, (char *)(nb % 10 + 48));
+    return add_to_str(result, (nb % 10 + 48));
 }
 
 char *int_str(int nb)
 {
     size_t len = get_nb_len(nb);
     size_t i = 0;
-    char *result = malloc(sizeof(char) * len);
+    char *result = malloc(sizeof(char) * (len + 1));
 
     if (nb < 0) {
         nb *= -1;
