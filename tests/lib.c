@@ -94,3 +94,18 @@ Test(write_error, test) {
     cr_expect(write_error(NULL) == -1);
 }
 
+Test(swap_int, test) {
+    int a = 15;
+    int b = 20;
+
+    swap_int(&a, &b);
+    cr_expect(a == 20 && b == 15);
+}
+
+Test(swap_str, test) {
+    char *a = "Hello";
+    char *b = ", World!";
+
+    swap_str(&a, &b);
+    cr_expect(str_cmp(a, ", World!") == 0 && str_cmp(b, "Hello") == 0);
+}

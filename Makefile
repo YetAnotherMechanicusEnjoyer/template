@@ -13,6 +13,7 @@ LIB_FILES	=	write.c		\
 				my_cpy.c	\
 				my_dup.c	\
 				convert.c	\
+				swap.c		\
 				file_reader.c	\
 				str_to_word_array.c
 

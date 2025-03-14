@@ -47,4 +47,6 @@ char **slice(const char *str, const char *separators, const size_t reverse);
 int str_to_int(const char *str);
 char *int_str(int nb);
 char *read_file(const char *path);
+void swap_int(int *a, int *b);
+void swap_str(char **a, char **b);
 #endif
