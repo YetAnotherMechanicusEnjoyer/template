@@ -7,14 +7,18 @@
 
 #include "my.h"
 
-size_t write_mess(const char *mess)
+int write_mess(const char *mess)
 {
+    if (!mess)
+        return EXIT_FAIL;
     write(COUT, mess, get_len(mess));
     return EXIT_SUCCESS;
 }
 
-size_t write_error(const char *mess)
+int write_error(const char *mess)
 {
+    if (!mess)
+        return EXIT_FAIL;
     write(CERR, mess, get_len(mess));
     return EXIT_ERROR;
 }

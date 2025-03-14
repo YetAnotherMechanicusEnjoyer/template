@@ -8,9 +8,7 @@ DESCRIPTION
         ...
 
 OPTIONS
-        -h
-            Displays this help page.
-        --help
+        -h, --help
             Displays this help page.
 
 AUTHOR

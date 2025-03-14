@@ -71,12 +71,17 @@ char **slice(const char *str, const char *separators, const size_t reverse)
 {
     size_t len = 0;
     char *string = NULL;
+    char **arr = NULL;
+    char *new_str = NULL;
 
     if (!str || !separators)
         return NULL;
     len = get_len(str);
-    string = handle_sep(str_dup(str), separators, reverse);
+    new_str = str_dup(str);
+    string = handle_sep(new_str, separators, reverse);
+    free(new_str);
     if (!string)
         return NULL;
-    return str_to_word_array(string, len);
+    arr = str_to_word_array(string, len);
+    return arr;
 }

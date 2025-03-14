@@ -14,9 +14,9 @@
     #include <stdlib.h>
     #include <dirent.h>
     #include <sys/stat.h>
-    #include <CSFML/Graphics.h>
-    #include <CSFML/Window.h>
-    #include <CSFML/System.h>
+    #include <SFML/Graphics.h>
+    #include <SFML/Window.h>
+    #include <SFML/System.h>
     #include <criterion/criterion.h>
 
 enum {
@@ -38,8 +38,8 @@ char *str_dup(const char *str);
 char *strn_dup(const char *str, const size_t n);
 void str_cpy(const char *a, char *b);
 void strn_cpy(const char *a, char *b, const size_t n);
-size_t write_mess(const char *mess);
-size_t write_error(const char *mess);
+int write_mess(const char *mess);
+int write_error(const char *mess);
 int str_cmp(const char *a, const char *b);
 int strn_cmp(char const *s1, char const *s2, const size_t n);
 char **slice(const char *str, const char *separators, const size_t reverse);

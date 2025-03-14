@@ -86,9 +86,11 @@ Test(str_to_word_array, test) {
 
 Test(write_mess, test) {
     cr_expect(write_mess("write_mess -> test successfull\n") == 0);
+    cr_expect(write_mess(NULL) == -1);
 }
 
 Test(write_error, test) {
     cr_expect(write_error("write_error -> test successfull\n") == 84);
+    cr_expect(write_error(NULL) == -1);
 }
 
