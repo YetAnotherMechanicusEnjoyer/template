@@ -27,12 +27,8 @@ void strn_cpy(const char *a, char *b, const size_t n)
 
 char *str_cat(char *dest, char const *src)
 {
-    size_t len1 = get_len(dest);
-    size_t len2 = get_len(src);
-    size_t i = 0;
+    size_t len = get_len(dest);
 
-    for (; i < len2; i++)
-        dest[i + len1] = src[i];
-    dest[len1 + i] = '\0';
+    str_cpy(src, &dest[len]);
     return dest;
 }

@@ -7,21 +7,11 @@
 
 #include "my.h"
 
-static char *add_to_str(char *str, const char to_add)
-{
-    size_t i = 0;
-
-    for (; str[i] != '\0'; i++);
-    str[i] = to_add;
-    str[i + 1] = '\0';
-    return str;
-}
-
 static char *recursive_to_string(size_t nb, char *result)
 {
     if (nb >= 10)
         recursive_to_string(nb / 10, result);
-    return add_to_str(result, (nb % 10 + 48));
+    return str_cat(result, (char *)(nb % 10 + 48));
 }
 
 char *int_str(int nb)
@@ -45,7 +35,7 @@ static size_t is_num(char c)
         return 2;
     if (c >= '0' && c <= '9')
         return 1;
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int str_to_int(const char *str)
