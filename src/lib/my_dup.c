@@ -9,7 +9,7 @@
 
 char *str_dup(const char *str)
 {
-    char *cpy = malloc(sizeof(char) * get_len(str) + 1);
+    char *cpy = malloc(sizeof(char) * (get_len(str) + 1));
 
     if (!cpy)
         return NULL;
@@ -19,7 +19,7 @@ char *str_dup(const char *str)
 
 char *strn_dup(const char *str, const size_t n)
 {
-    char *cpy = malloc(sizeof(char) * get_len(str) + 1);
+    char *cpy = malloc(sizeof(char) * (get_len(str) + 1));
 
     if (!cpy)
         return NULL;

@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include <criterion/criterion.h>
 
 Test(str_to_int, test) {
     cr_expect(str_to_int("") == 0);

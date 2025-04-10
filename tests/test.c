@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include <criterion/criterion.h>
 
 Test(initialise, test) {
 

@@ -14,10 +14,6 @@
     #include <stdlib.h>
     #include <dirent.h>
     #include <sys/stat.h>
-    #include <SFML/Graphics.h>
-    #include <SFML/Window.h>
-    #include <SFML/System.h>
-    #include <criterion/criterion.h>
 
 enum {
     EXIT_ERROR = 84,

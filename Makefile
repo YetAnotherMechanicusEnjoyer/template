@@ -5,6 +5,8 @@
 ## Compiles C files
 ##
 
+CC			=	gcc
+
 DIR_LIB		=	lib/
 
 LIB_FILES	=	write.c		\
@@ -43,9 +45,11 @@ TFLAGS		=	--coverage -lcriterion
 TEST_SRC	=	$(addprefix $(DIR_SRC), $(addprefix $(DIR_LIB), $(LIB_FILES)))\
 				$(addprefix $(DIR_SRC), $(addprefix $(DIR_TMP), $(TMP_FILES)))
 
-TEST_OBJ	=	$(TEST_SRC:.c=.o)
+DIR_OBJ		=	.obj/
 
-OBJ			=	$(SRC:.c=.o)
+TEST_OBJ	=	$(TEST_SRC:%.c=$(DIR_OBJ)%.o)
+
+OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 
 CFLAGS		=	-I./include -g -Wall -Wextra
 
@@ -54,12 +58,17 @@ BINARY		=	template
 all: 	$(BINARY)
 
 $(BINARY):	$(OBJ)
-		@gcc $(OBJ) -o $(BINARY) $(CFLAGS)
+		@$(CC) $^ -o $@ $(CFLAGS)
 		@echo -e "\x1b[36mMakefile -> compile\x1b[0m"
+
+$(DIR_OBJ)%.o:	$(SRC)
+		@mkdir -p $(dir $@)
+		@$(CC) $(CFLAGS) $^ -o $@
 
 clean:
 		@rm -f $(OBJ) $(TEST_OBJ)
 		@rm -rf .ropeproject
+		@rm -rf .cache
 		@echo -e "\x1b[35mMakefile -> clean\x1b[0m"
 
 fclean: clean
@@ -69,7 +78,9 @@ fclean: clean
 		@rm -f *.gcov
 		@rm -f *.gcda
 		@rm -f *.gcno
+		@rm -rf .cache
 		@rm -f vgcore.*
+		@rm -rf $(DIR_OBJ)
 		@echo -e "\x1b[35mMakefile -> fclean\x1b[34m"
 
 re:		fclean all
@@ -89,6 +100,7 @@ run:	re
 		@rm -f *.gcda
 		@rm -f *.gcno
 		@rm -f vgcore.*
+		@rm -rf $(DIR_OBJ)
 		@echo -e "\x1b[32m>-------------------<\x1b[0m"
 
 criterion: fclean $(TEST_OBJ)

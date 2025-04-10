@@ -17,7 +17,7 @@ static char *add_to_str(char *str, const char to_add)
     return str;
 }
 
-static char *recursive_to_string(size_t nb, char *result)
+static char *recursive_to_string(const size_t nb, char *result)
 {
     if (nb >= 10)
         recursive_to_string(nb / 10, result);
