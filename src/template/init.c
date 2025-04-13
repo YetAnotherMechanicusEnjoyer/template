@@ -7,6 +7,11 @@
 
 #include "my.h"
 
+static size_t tamere(void)
+{
+    return EXIT_SUCCESS;
+}
+
 static size_t print_help(void)
 {
     write_mess(read_file("assets/txt/help"));
@@ -20,7 +25,7 @@ static size_t handle_error(int argc, const char *argv[])
         return print_help();
     if (argc > 1)
         return write_error("Error 84: Bad usage!\n\n"
-        "Usage: ./mysh [OPTIONS]\n"
+        "Usage: ./template [OPTIONS]\n"
         "Options:\n\t-h\n\t--help\n");
     return EXIT_SUCCESS;
 }
@@ -28,11 +33,11 @@ static size_t handle_error(int argc, const char *argv[])
 int initialise(int argc, const char *argv[])
 {
     switch (handle_error(argc, argv)) {
-        case 2029:
+        case EXIT_HELP:
             return EXIT_SUCCESS;
-        case 84:
+        case EXIT_ERROR:
             return EXIT_ERROR;
         default:
-            return EXIT_SUCCESS;
+            return tamere();
     }
 }

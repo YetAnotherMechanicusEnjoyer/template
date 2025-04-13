@@ -6,6 +6,8 @@
 */
 
 #include "my.h"
+#include <sys/stat.h>
+#include <fcntl.h>
 
 char *read_file(const char *path)
 {

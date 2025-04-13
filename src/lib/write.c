@@ -22,3 +22,12 @@ int write_error(const char *mess)
     write(CERR, mess, get_len(mess));
     return EXIT_ERROR;
 }
+
+int write_arr(const char **arr)
+{
+    if (!arr)
+        return EXIT_FAIL;
+    for (size_t i = 0; arr[i]; i++)
+        write_mess(arr[i]);
+    return EXIT_SUCCESS;
+}

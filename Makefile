@@ -11,11 +11,13 @@ DIR_LIB		=	lib/
 
 LIB_FILES	=	write.c		\
 				get_len.c	\
+				my_cat.c	\
 				my_cmp.c	\
 				my_cpy.c	\
 				my_dup.c	\
 				convert.c	\
 				swap.c		\
+				array.c		\
 				file_reader.c	\
 				str_to_word_array.c
 
