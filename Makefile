@@ -40,33 +40,34 @@ TESTS		=	$(addprefix $(DIR_TEST), $(TEST_FILES))
 
 BINARY_TEST	=	test
 
-TFLAGS		=	--coverage -lcriterion
-
-TEST_SRC	=	$(addprefix $(DIR_SRC), $(addprefix $(DIR_LIB), $(LIB_FILES)))\
-				$(addprefix $(DIR_SRC), $(addprefix $(DIR_TMP), $(TMP_FILES)))
-
 DIR_OBJ		=	.obj/
-
-TEST_OBJ	=	$(TEST_SRC:%.c=$(DIR_OBJ)%.o)
 
 OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 
-CFLAGS		=	-I./include -g -Wall -Wextra
+TEST_OBJ	=	$(TESTS:%.c=$(DIR_OBJ)%.o)	\
+				$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
 
-BINARY		=	template
+CFLAGS		=	-I./include
+
+DFLAGS		=	-g -Wall -Wextra
+
+TFLAGS		=	--coverage -lcriterion
+
+BINARY		=	a.out
 
 all: 	$(BINARY)
 
 $(BINARY):	$(OBJ)
-		@$(CC) $^ -o $@ $(CFLAGS)
+		@$(CC) $^ -o $@ $(CFLAGS) $(DFLAGS)
 		@echo -e "\x1b[36mMakefile -> compile\x1b[0m"
 
-$(DIR_OBJ)%.o:	$(SRC)
+$(DIR_OBJ)%.o:	%.c
 		@mkdir -p $(dir $@)
-		@$(CC) $(CFLAGS) $^ -o $@
+		@$(CC) $^ -c -o $@ $(CFLAGS) $(DFLAGS)
+		@echo -e "\x1b[36mMakefile -> $@\x1b[0m"
 
 clean:
-		@rm -f $(OBJ) $(TEST_OBJ)
+		@rm -rf $(DIR_OBJ)
 		@rm -rf .ropeproject
 		@rm -rf .cache
 		@echo -e "\x1b[35mMakefile -> clean\x1b[0m"
@@ -85,6 +86,7 @@ fclean: clean
 
 re:		fclean all
 		@rm -rf .ropeproject
+		@rm -rf $(DIR_OBJ)
 		@echo -e "\x1b[31mMakefile -> re\x1b[0m"
 
 run:	re
@@ -104,8 +106,7 @@ run:	re
 		@echo -e "\x1b[32m>-------------------<\x1b[0m"
 
 criterion: fclean $(TEST_OBJ)
-		@gcc -o $(BINARY_TEST) $(TEST_OBJ) $(TESTS) $(CFLAGS) $(TFLAGS)
-		@rm -f $(TEST_OBJ)
+		@$(CC) -o $(BINARY_TEST) $(TEST_OBJ) $(CFLAGS) $(DFLAGS) $(TFLAGS)
 		@echo -e "\x1b[36mMakefile -> criterion\x1b[0m"
 
 run_tests:	criterion
