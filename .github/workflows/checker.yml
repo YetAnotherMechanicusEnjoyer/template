@@ -31,8 +31,6 @@ jobs:
   check_coding_style:
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
-    needs: check_repository
-    if: ${{ needs.check_repository.outputs.same_repo == 'false' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -110,8 +108,8 @@ jobs:
 
   push_to_mirror:
     runs-on: ubuntu-latest
-    needs: run_tests
-    if: ${{ github.event_name == 'push' && success() }}
+    needs: [[ run_tests, check_repository ]]
+    if: ${{ github.event_name == 'push' && success() && needs.check_repository.outputs.same_repo == 'false' }}
     steps:
       - uses: actions/checkout@v4
         with:

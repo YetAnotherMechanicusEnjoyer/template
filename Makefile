@@ -113,9 +113,11 @@ run_tests:	criterion
 		@-./$(BINARY_TEST)
 		@gcovr -i ./$(BINARY_TEST)
 		@rm -f $(BINARY) $(BINARY_TEST)
+		@rm -f *.log
 		@rm -f *.gcov
 		@rm -f *.gcda
 		@rm -f *.gcno
+		@rm -rf $(DIR_OBJ)
 		@echo -e "\x1b[34mMakefile -> run_tests\x1b[0m"
 
 .PHONY: all clean fclean re criterion run_tests run
