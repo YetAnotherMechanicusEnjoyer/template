@@ -111,7 +111,7 @@ criterion: fclean $(TEST_OBJ)
 
 run_tests:	criterion
 		@-./$(BINARY_TEST)
-		@gcovr -i ./$(BINARY_TEST)
+		@gcovr --exclude ./$(BINARY_TEST)
 		@rm -f $(BINARY) $(BINARY_TEST)
 		@rm -f *.log
 		@rm -f *.gcov
