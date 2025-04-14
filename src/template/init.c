@@ -6,8 +6,9 @@
 */
 
 #include "my.h"
+#include <string.h>
 
-static size_t tamere(void)
+static size_t start(void)
 {
     return EXIT_SUCCESS;
 }
@@ -38,6 +39,6 @@ int initialise(int argc, const char *argv[])
         case EXIT_ERROR:
             return EXIT_ERROR;
         default:
-            return tamere();
+            return start();
     }
 }

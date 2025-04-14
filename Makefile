@@ -17,7 +17,6 @@ LIB_FILES	=	write.c		\
 				my_dup.c	\
 				convert.c	\
 				swap.c		\
-				array.c		\
 				file_reader.c	\
 				str_to_word_array.c
 
@@ -46,8 +45,7 @@ DIR_OBJ		=	.obj/
 
 OBJ			=	$(SRC:%.c=$(DIR_OBJ)%.o)
 
-TEST_OBJ	=	$(TESTS:%.c=$(DIR_OBJ)%.o)	\
-				$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
+TEST_OBJ	=	$(filter-out $(DIR_OBJ)/src/main.o, $(OBJ))
 
 CFLAGS		=	-I./include
 
@@ -108,12 +106,12 @@ run:	re
 		@echo -e "\x1b[32m>-------------------<\x1b[0m"
 
 criterion: fclean $(TEST_OBJ)
-		@$(CC) -o $(BINARY_TEST) $(TEST_OBJ) $(CFLAGS) $(DFLAGS) $(TFLAGS)
+		@$(CC) -o $(BINARY_TEST) $(TESTS) $(TEST_OBJ) $(CFLAGS) $(TFLAGS)
 		@echo -e "\x1b[36mMakefile -> criterion\x1b[0m"
 
 run_tests:	criterion
 		@-./$(BINARY_TEST)
-		@gcovr --exclude ./$(BINARY_TEST)
+		@gcovr -i ./$(BINARY_TEST)
 		@rm -f $(BINARY) $(BINARY_TEST)
 		@rm -f *.gcov
 		@rm -f *.gcda

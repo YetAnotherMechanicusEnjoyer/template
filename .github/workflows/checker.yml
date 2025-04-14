@@ -9,9 +9,9 @@ on:
       - "ga-ignore-**"
 
 env:
-  MIRROR_URL: 
-  MIRROR_REPO: 
-  EXECUTABLES: 
+  MIRROR_URL: git@github.com:YetAnotherMechanicusEnjoyer/template.git
+  MIRROR_REPO: YetAnotherMechanicusEnjoyer/template
+  EXECUTABLES: a.out
 
 jobs:
   check_repository:

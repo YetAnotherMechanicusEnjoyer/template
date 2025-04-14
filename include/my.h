@@ -24,9 +24,6 @@ int initialise(const int argc, const char *argv[]);
 
 /* >------ Lib ------< */
 
-/* array */
-char **array_add(char **arr, char *add);
-
 /* lenght */
 size_t get_len(const char *str);
 size_t get_array_len(const char **array);
@@ -37,14 +34,15 @@ char *str_dup(const char *str);
 char *strn_dup(const char *str, const size_t n);
 
 /* cpy */
-void str_cpy(const char *a, char *b);
-void strn_cpy(const char *a, char *b, const size_t n);
-void array_cpy(const char **arr, char **cpy);
-void arrayn_cpy(const char **arr, char **cpy, const size_t n);
+void str_cpy(char *a, const char *b);
+void strn_cpy(char *a, const char *b, const size_t n);
+void array_cpy(char **arr, const char **to_cpy);
+void arrayn_cpy(char **arr, const char **to_cpy, const size_t n);
 
 /* cat */
-char *str_cat(char *dest, char const *src);
+void str_cat(char *dest, const char *src);
 char *str_catalloc(const char *str, const char *add);
+void array_cat(char **dest, const char **src);
 char **array_catalloc(const char **arr, const char **add);
 
 /* write */
