@@ -63,10 +63,10 @@ jobs:
           echo "banned_func=false" >> $GITHUB_OUTPUT
 
   check_coding_style:
-    needs: check_banned_functions
-    if: ${{ needs.check_banned_functions.outputs.banned_func == 'false' }}
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
+    outputs:
+      check_coding_style: ${{ steps.results.outputs.check_coding_style }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -88,21 +88,22 @@ jobs:
           done < $input
 
       - name: Report Results
+        id: results
         run: |
           NBE=$(cat /tmp/coding-style-reports.log | wc -l)
           if [ $NBE -gt 0 ]; then
-            echo "check_coding_style=false" >> $GITHUB_OUTPUT
+            echo "check_coding_style=true" >> $GITHUB_OUTPUT
             exit 1
           else
-            echo "check_coding_style=true" >> $GITHUB_OUTPUT
+            echo "check_coding_style=false" >> $GITHUB_OUTPUT
           fi
 
   check_program_compilation:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     container: epitechcontent/epitest-docker:latest
-    needs: check_coding_style
-    if: success()
+    needs: [check_coding_style, check_repository, check_banned_functions]
+    if: ${{ success() && needs.check_banned_functions.outputs.banned_func == 'false'  && needs.check_repository.outputs.same_repo == 'false' && needs.check_coding_style.outputs.check_coding_style == 'false' }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -144,8 +145,8 @@ jobs:
 
   push_to_mirror:
     runs-on: ubuntu-latest
-    needs: [run_tests, check_repository]
-    if: ${{ github.event_name == 'push' && success() && needs.check_repository.outputs.same_repo == 'false' }}
+    needs: run_tests
+    if: ${{ github.event_name == 'push' && success() }}
     steps:
       - uses: actions/checkout@v4
         with:
