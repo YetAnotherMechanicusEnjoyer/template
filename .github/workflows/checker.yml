@@ -54,7 +54,7 @@ jobs:
               FOUND=$(grep -rn --include="*.c" "\b$function\b" "$SOURCE_DIR" 2>/dev/null | sed 's/: .*$//')
               if [ -n "$FOUND" ]; then
                   while IFS= read -r location; do
-                      echo "::error title=Banned Function,file=$FOUND,line=$location::$function"
+                      echo "::error title=${function},file=${FOUND},line=${location}::"
                   done <<< "$FOUND"
                   echo "banned_func=true" >> $GITHUB_OUTPUT
                   exit 1
