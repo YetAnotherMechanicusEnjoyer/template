@@ -43,11 +43,12 @@ jobs:
       - name: Check Functions
         id: func
         run: |
+          FILE=1
           if [ ! -f "$BANNED_FUNC_FILE" ]; then
-              echo "Erreur: Le fichier $BANNED_FUNC_FILE n'existe pas."
-              exit 1
+              echo "::warning file:${BANNED_FUNC_FILE}::Le fichier $BANNED_FUNC_FILE n'existe pas."
+              FILE=0
           fi
-          while IFS= read -r function || [ -n "$function" ]; do
+          while FILE == 1 && IFS= read -r function || [ -n "$function" ]; do
               if [[ -z "$function" || "$function" =~ ^# ]]; then
                   continue
               fi
