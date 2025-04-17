@@ -9,6 +9,7 @@ on:
       - "ga-ignore-**"
 
 env:
+  BANNED_FUNC_FILE: assets/txt/banned
   MIRROR_URL: git@github.com:YetAnotherMechanicusEnjoyer/template.git
   MIRROR_REPO: YetAnotherMechanicusEnjoyer/template
   EXECUTABLES: a.out
@@ -28,7 +29,41 @@ jobs:
             echo "same_repo=false" >> $GITHUB_OUTPUT
           fi
 
+  check_banned_functions:
+    runs-on: ubuntu-latest
+    outputs:
+      banned_func: ${{ steps.func.outputs.banned_func }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          repository: ''
+
+      - name: Check Functions
+        id: func
+        run: |
+          if [ ! -f "$BANNED_FUNC_FILE" ]; then
+              echo "Erreur: Le fichier $BANNED_FUNC_FILE n'existe pas."
+              exit 1
+          fi
+          while IFS= read -r function || [ -n "$function" ]; do
+              if [[ -z "$function" || "$function" =~ ^# ]]; then
+                  continue
+              fi
+              FOUND=$(grep -rn --include="*.c" "\b$function\b" "$SOURCE_DIR" 2>/dev/null | sed 's/: .*$//')
+              if [ -n "$FOUND" ]; then
+                  while IFS= read -r location; do
+                      echo "::error title=Banned Function, file=$location,::$function"
+                  done <<< "$FOUND"
+                  echo "banned_func=true" >> $GITHUB_OUTPUT
+                  exit 1
+              fi
+          done < "$FORBIDDEN_FUNCTIONS_FILE"
+          echo "banned_func=false" >> $GITHUB_OUTPUT
+
   check_coding_style:
+    needs: check_banned_functions
+    if: ${{ needs.check_banned_functions.outputs.banned_func == 'false' }}
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
