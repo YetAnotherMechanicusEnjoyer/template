@@ -9,20 +9,24 @@
 
 void str_cpy(char *a, const char *b)
 {
+    size_t i = 0;
+
     if (!a || !b)
         return;
-    for (size_t i = 0; b[i] != '\0'; i++)
+    for (; b[i] != '\0'; i++)
         a[i] = b[i];
-    *a = '\0';
+    a[i] = '\0';
 }
 
 void strn_cpy(char *a, const char *b, const size_t n)
 {
+    size_t i = 0;
+
     if (!a || !b)
         return;
     for (size_t i = 0; b[i] != '\0' && i < n; i++)
         a[i] = b[i];
-    *a = '\0';
+    a[i] = '\0';
 }
 
 void array_cpy(char **arr, const char **to_cpy)

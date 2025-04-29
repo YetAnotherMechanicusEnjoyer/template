@@ -26,7 +26,7 @@ char *strn_dup(const char *str, const size_t n)
 
     if (!str)
         return NULL;
-    cpy = malloc(sizeof(char) * (get_len(str) + 1));
+    cpy = malloc(sizeof(char) * (n + 1));
     if (!cpy)
         return NULL;
     strn_cpy(cpy, str, n);
